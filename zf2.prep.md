@@ -251,10 +251,11 @@ In ZF2 an observer is a listener attached via the event manager as a callback.
 
 ### Aspect Orientation
 
-Since PHP is not compiled it means it is not possible to provide this functionality
-as other languages do.
+Aspect orientation helps deal with cross cutting concerns. In compiled langauges
+it is easy to insert code into methods during compilation solving this problem.
 
-You can however solve this in ZF2 using pre and post events in a method.
+Since PHP is not compiled other solutions have been implemented. One of these
+being the ZF2 event manager using pre and post events in a method.
 
 **For Example:**
 
