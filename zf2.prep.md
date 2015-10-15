@@ -129,6 +129,21 @@ Service will be lazy loaded and classes will only be instantiated from
 invokables or factories when get method is called on ServiceManager and
 provided with matching name as first argument.
 
+**Example Configs**
+
+```php
+[
+    'service_manager' => [
+        'invokables' => [
+            'MyNamespace\\MyService' => 'MyNamespace\\Service\\MyService',
+        ],
+        'factories' => [
+            'MyNamespace\\MyOtherService' => 'MyNamespace\\Factory\\MyServiceFactory',
+        ]
+    ]
+]
+```
+
 ### Plugin Managers
 
 Core compontents of the framework will have there own implementation of the
