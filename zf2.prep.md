@@ -33,7 +33,7 @@ Typically found in config/application.config.php
 
 ```php
 [
-    modules => [
+    'modules' => [
         'Application', // The modules to be loaded by manager
     ],
     'module_listener_options' => [
