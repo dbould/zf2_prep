@@ -474,3 +474,43 @@ switch ($request->getMethod()) {
         exit(1);
 }
 ```
+## Forms
+
+Form extends Fieldset extends Element
+
+**Example element config**
+
+```php
+[
+    'name' => 'Gender',
+    'type' => 'Select',
+    'options' => [
+        'label' => 'GENDER',
+        'empty_option' => 'Please select',
+        'value_options' => [
+            1 => 'Female'
+            2 => 'Male',
+        ]
+    ]
+]
+```
+
+**Example element**
+
+```php
+use Zend\Form\Form;
+    $form = new Form('my_form');
+    $form->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'language',
+            'options' => array(
+                    'label' => 'Which is your mother tongue?',
+                    'value_options' => array(
+                            '0' => 'French',
+                            '1' => 'English',
+                            '2' => 'Japanese',
+                            '3' => 'Chinese',
+                    ),
+            )
+    ));
+```
