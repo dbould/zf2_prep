@@ -144,6 +144,33 @@ provided with matching name as first argument.
 ]
 ```
 
+**Abstract Factories**
+
+Abstract Factories should implement the AbstractFactoryInterface. Which
+provides the following method signatures:
+
+* canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+* createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+
+**Initializers**
+
+Initializers can be used to listen for a certain interface and then run
+specific logic using a closure
+
+For Example:
+
+```php
+[
+    'Initializers' => [
+        'CalculatorInit' => function($service, $serviceManager) {
+            if ($service instanceof CalculatorAwareService) {
+                $service->setThing($serviceManager->get('thing'));
+            }
+        }
+    ]
+]
+```
+
 ### Plugin Managers
 
 Core compontents of the framework will have there own implementation of the
