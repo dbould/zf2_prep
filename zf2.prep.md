@@ -164,6 +164,7 @@ out of the Manager.
 
 **Example Config**
 
+```php
 [
     'controllers' => [
         'invokables' => [
@@ -185,3 +186,4 @@ out of the Manager.
         ]
     ]
 ]
+```
