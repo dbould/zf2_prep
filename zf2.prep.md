@@ -514,3 +514,30 @@ use Zend\Form\Form;
             )
     ));
 ```
+
+**Get and Set Data**
+
+```php
+    $form = new Form();
+    $form->setData($data);
+
+    if ($form->isValid === true) {
+        $filteredData = $form->getData();
+    }
+```
+
+**Get and Set Data with entity**
+
+```php
+    $form = new Form();
+    $form->setObject(new UserEntity()); // this would be done in Form Class
+    $form->bind(new UserEntity()); // this would be done in controller
+
+    $form->setData($userData);
+
+    if ($form->isValid === true) {
+        $user = $form->getObject();
+    }
+```
+
+# Fielsets
