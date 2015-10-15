@@ -292,3 +292,89 @@ class Module
     }
 }
 ```
+
+## Zend DB
+
+An abstraction layer to allow for databases to be queried
+
+### Adapter
+
+To use Zend DB an adapter must be instantiated with taking config of database
+credentials and details as first argument.
+
+**DriverInterface**
+
+```php
+<?php
+namespace Zend\Db\Adapter\Driver;
+
+ interface DriverInterface
+ {
+     const PARAMETERIZATION_POSITIONAL = 'positional';
+     const PARAMETERIZATION_NAMED = 'named';
+     const NAME_FORMAT_CAMELCASE = 'camelCase';
+     const NAME_FORMAT_NATURAL = 'natural';
+     public function getDatabasePlatformName($nameFormat = self::NAME_FORMAT_CAMELCASE);
+     public function checkEnvironment();
+     public function getConnection();
+     public function createStatement($sqlOrResource = null);
+     public function createResult($resource);
+     public function getPrepareType();
+     public function formatParameterName($name, $type = null);
+     public function getLastGeneratedValue();
+ }
+ ```
+
+**Example Adapter**
+
+```php
+$dbAdapter = new Adapter([
+    'driver' => 'Pdo',
+    'dsn' => 'mysql:dbname=example_database;host=localhost',
+    'username' => 'test',
+    'password' => 'testpass',
+]);
+```
+
+**Using the adapter**
+
+```php
+// createStatement
+$sql = 'SELECT * FROM users;';
+$statement = $adapter->createStatement($sql);
+$result = $statement->execute();
+
+// query
+$sql = 'SELECT * FROM users WHERE `id` = ?;';
+$result = $adapter->query($sql, [2]);
+```
+
+### Db\\Sql
+
+Compontent to allow SQL queries to be built up programmatically.
+
+**Example**
+
+```php
+<?php
+use Zend\Db\Sql\Sql;
+
+$sql = new Sql($adapter);
+$select = $sql->select(); // @return Zend\Db\Sql\Select
+$insert = $sql->insert(); // @return Zend\Db\Sql\Insert
+$update = $sql->update(); // @return Zend\Db\Sql\Update
+$delete = $sql->delete(); // @return Zend\Db\Sql\Delete
+```
+
+**Example Select**
+
+```php
+use Zend\Db\Sql\Sql;
+$sql = new Sql($adapter);
+$select = $sql->select();
+$select->from('foo');
+$select->where(array('id' => 2));
+
+$statement = $sql->prepareStatementForSqlObject($select);
+$results = $statement->execute();
+```
