@@ -428,12 +428,12 @@ $client = new Client('http://localhost:8080/soap.php');
 // Modify '$original' to test encoding
 $original = 'Hello world!';
 echo "Unencoded '$original': ";
-echo $client->encode($original), "\n";
+echo $client->encode($original), "\n"; // Method comes from setClass argument interface
 
 // Modify '$encoded' to test decoding
 $encoded = str_rot13('Hello world!');
 echo "Encoded '$encoded': ";
-echo $client->decode($encoded), "\n";
+echo $client->decode($encoded), "\n";  // Method comes from setClass argument interface
 ```
 
 Sop
@@ -459,7 +459,7 @@ $request = new Request();
 switch ($request->getMethod()) {
     case Request::METHOD_GET:
         $server = new AutoDiscover();
-        $server->setClass('Zf2AdvancedCourse\Rot13')
+        $server->setClass('Application\Rot13') // Set the class for client API
             ->setUri($uri)
             ->setServiceName('Rot13');
         $wsdl = $server->generate();
@@ -551,4 +551,47 @@ use Zend\Form\Form;
 
 ```
 
-# Fielsets
+## Authentication
+
+### RBAC
+
+Role based access control.
+
+* Roles have defined permissions
+* Roles have inheritance
+
+
+**Roles**
+
+Roles can be created by implementing Zend\\Permissions\\Rbac\\AbstractRole
+
+**AssertionInterface**
+
+The AssertionInterface can be used to create callbacks to supplement roles.
+
+For example if you required a User to also be part of a subscription model an
+assertion could be used.
+
+## Pagination
+
+**AdapterInterface**
+
+```php
+/**
+ * Returns a collection of items for a page.
+ *
+ * @param  int $offset Page offset
+ * @param  int $itemCountPerPage Number of items per page
+ * @return array
+ */
+public function getItems($offset, $itemCountPerPage);
+```
+
+**Example**
+
+```php
+$data = ['this', 'that'];
+
+$paginator = new Paginator(new ArrayAdapter($data));
+
+```
