@@ -125,6 +125,10 @@ so any of the following would retrieve the same service;
     $services->get('MyService');
 ```
 
+Service will be lazy loaded and classes will only be instantiated from
+invokables or factories when get method is called on ServiceManager and
+provided with matching name as first argument.
+
 ### Plugin Managers
 
 Core compontents of the framework will have there own implementation of the
@@ -138,7 +142,46 @@ ServiceManager.
 Key Plugin Managers:
 
 * ControllerPluginManager
+* ControllerManager
 * FormElementManager
 * HydratorManager
 * ViewHelperManager
 * ValidatorManager
+
+The AbstractPluginManager has the following abstract method which must be
+implemented by sub classes:
+
+```php
+abstract public function validatePlugin($plugin);
+```
+
+#### ControllerManager
+
+The controller manager is used internally by ZF2 during the routing process.
+
+The matched route name is used to get an instance of the correct controller
+out of the Manager.
+
+**Example Config**
+
+[
+    'controllers' => [
+        'invokables' => [
+            'MyController' => 'My\\Namespace'
+        ]
+    ],
+    'router' => [
+        'routes' => [
+            'home' => [
+                'type' => 'Zend\\Mvc\\Router\\Http\\Literal',
+                'options' => [
+                    'route'    => '/my-route',
+                    'defaults' => [
+                        'controller' => 'MyController',
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+        ]
+    ]
+]
