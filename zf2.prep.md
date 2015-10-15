@@ -378,3 +378,95 @@ $select->where(array('id' => 2));
 $statement = $sql->prepareStatementForSqlObject($select);
 $results = $statement->execute();
 ```
+
+## Web Services
+
+### Http Client
+
+**DispatchableInterface**
+
+```php
+public function dispatch(RequestInterface $request, ResponseInterface $response = null);
+```
+
+**Http Client example**
+
+```php
+$this->httpClient->reset();
+
+$headers = new \Zend\Http\Headers();
+$this->httpClient->setUri($this->formConfigApi['form_configuration_url']);
+$this->httpClient->setMethod(Request::METHOD_GET);
+
+$headers->addHeaderLine("Accept", "application/json");
+$headers->addHeaderLine("Content-Type", "application/json");
+$headers->addHeaderLine("Authorization", "bearer " . $this->session->access_token);
+$this->httpClient->setHeaders($headers);
+
+$response = $this->httpClient->send();
+```
+
+### REST
+
+### SOAP
+
+SOAP client consumes an endpoint
+
+**SOAP Client Example**
+
+```php
+<?php
+
+use Zend\Soap\Client;
+
+include __DIR__ . '/vendor/autoload.php';
+
+// Modify the endpoint as necessary
+$client = new Client('http://localhost:8080/soap.php');
+
+// Modify '$original' to test encoding
+$original = 'Hello world!';
+echo "Unencoded '$original': ";
+echo $client->encode($original), "\n";
+
+// Modify '$encoded' to test decoding
+$encoded = str_rot13('Hello world!');
+echo "Encoded '$encoded': ";
+echo $client->decode($encoded), "\n";
+```
+
+**SOAP API Example**
+
+```php
+<?php
+
+use Zend\Http\PhpEnvironment\Request;
+use Zend\Soap\AutoDiscover;
+use Zend\Soap\Server;
+
+include __DIR__ . '/vendor/autoload.php';
+
+require_once __DIR__ . '/Rot13.php';
+
+$uri     = 'http://localhost:8080/soap.php';
+$request = new Request();
+
+switch ($request->getMethod()) {
+    case Request::METHOD_GET:
+        $server = new AutoDiscover();
+        $server->setClass('Zf2AdvancedCourse\Rot13')
+            ->setUri($uri)
+            ->setServiceName('Rot13');
+        $wsdl = $server->generate();
+        echo $wsdl->toXml();
+        break;
+    case Request::METHOD_POST:
+        $server = new Server($uri);
+        $server->setClass('Zf2AdvancedCourse\Rot13');
+        $server->handle();
+        break;
+    default:
+        header('HTTP/1.1 405 Method Not Allowed');
+        exit(1);
+}
+```
