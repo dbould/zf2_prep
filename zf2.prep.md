@@ -435,7 +435,11 @@ echo "Encoded '$encoded': ";
 echo $client->decode($encoded), "\n";
 ```
 
-**SOAP API Example**
+Sop
+
+**SOAP Server Example**
+
+Using the AutoDiscover set handler using AutoDiscover::setClass method.
 
 ```php
 <?php
