@@ -574,6 +574,17 @@ assertion could be used.
 
 ## Pagination
 
+The paginator class takes an adapter as first argument to decouple the Pagination
+code from any specific data source.
+
+**Default Adapters**
+
+* ArrayAdapter
+* DbSelect
+* DbTableGateway
+* Iterator
+* Callback
+
 **AdapterInterface**
 
 ```php
@@ -594,4 +605,23 @@ $data = ['this', 'that'];
 
 $paginator = new Paginator(new ArrayAdapter($data));
 
+```
+
+**Paginator Controls**
+```php
+<?php
+// add at the end of the file after the table
+echo $this->paginationControl(
+    // the paginator object
+    $this->paginator,
+    // the scrolling style
+    'sliding',
+    // the partial to use to render the control
+    'partial/paginator.phtml',
+    // the route to link to when a user clicks a control link
+    array(
+        'route' => 'album'
+    )
+);
+?>
 ```
