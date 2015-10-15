@@ -118,9 +118,12 @@ Which contains to methods:
 When getting a service from a service manager the $name argument is normalized,
 so any of the following would retrieve the same service;
 
-* ```php $services->get('My-Service');```
-* $services->get('myservice');
-* $services->get('MyService');
+```php
+<?php
+    $services->get('My-Service');
+    $services->get('myservice');
+    $services->get('MyService');
+```
 
 ### Plugin Managers
 
