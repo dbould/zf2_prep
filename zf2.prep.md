@@ -541,4 +541,14 @@ use Zend\Form\Form;
     }
 ```
 
+**Rendering forms in view phtml**
+
+```php
+<?php $this->form->prepare(); // Always call prepare in view ?>
+
+<?php $this->form($this->form); // Render whole form ?>
+<?php $this->formRow($this->form->get('Gender')); // Render an element ?>
+
+```
+
 # Fielsets
