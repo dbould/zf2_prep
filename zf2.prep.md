@@ -1,4 +1,4 @@
-# ZF2 ZF2 Certified Architect Notes & Prep
+# ZF2 Certified Architect Notes & Prep
 
 ## Modules
 
