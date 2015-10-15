@@ -229,3 +229,66 @@ out of the Manager.
     ]
 ]
 ```
+
+## Event Manager
+
+The event manager is an implementation of the observer pattern.
+
+**The EventManagerInterface**
+
+```php
+    public function attach($event, $callback = null, $priority = 1);
+
+    public function trigger($event, $target = null, $argv = [], $callback = null);
+```
+
+**Provider:**
+A provider in ZF2 is any class which triggers an event via the event manager.
+
+**Observer**
+
+In ZF2 an observer is a listener attached via the event manager as a callback.
+
+### Aspect Orientation
+
+Since PHP is not compiled it means it is not possible to provide this functionality
+as other languages do.
+
+You can however solve this in ZF2 using pre and post events in a method.
+
+**For Example:**
+
+```php
+<?php
+namespace MyNamespace;
+
+class Tester
+{
+    public function testIt()
+    {
+        $this->eventManager-addIdentifiers(array(
+            get_called_class()
+        ));
+        $this->eventManager->trigger('testIt.pre', $this, ['test']);
+
+        // Some logic
+
+        $this->eventManager->trigger('testIt.post', $this, ['test']);
+    }
+}
+```
+
+```php
+class Module
+{
+    public function onBootstrap(MvcEvent $event)
+    {
+        $eventManager = $event->getApplication()->getEventManager();
+        $sharedEventManager = $eventManager->getSharedManager();
+
+        $sharedEventManager->attach('MyNamespace', 'testIt.pre', function($e) {
+            echo 'Test it';
+        }, 100);
+    }
+}
+```
