@@ -10,10 +10,10 @@ order so you can override specific behaviors.
 
 **Events:**
 
-loadModules - triggered at start of ModuleManager::loadModules()
-loadModule.resolve - triggered in ModuleManager::loadModuleByName()
-loadModule - triggered each time a module is loaded
-loadModules.post - triggered at end of ModuleManager::loadModules()
+* loadModules - triggered at start of ModuleManager::loadModules()
+* loadModule.resolve - triggered in ModuleManager::loadModuleByName()
+* loadModule - triggered each time a module is loaded
+* loadModules.post - triggered at end of ModuleManager::loadModules()
 
 **Interface:**
 
