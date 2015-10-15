@@ -607,6 +607,15 @@ $paginator = new Paginator(new ArrayAdapter($data));
 
 ```
 
+**Paginator in view**
+```php
+<ul>
+<?php foreach ($this->pagiantor as $item) : ?>
+    <li><?php echo $item;?></li>
+<?php endforeach;?>
+</ul>
+```
+
 **Paginator Controls**
 ```php
 <?php
