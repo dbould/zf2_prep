@@ -161,7 +161,7 @@ For Example:
 
 ```php
 [
-    'Initializers' => [
+    'initializers' => [
         'CalculatorInit' => function($service, $serviceManager) {
             if ($service instanceof CalculatorAwareService) {
                 $service->setThing($serviceManager->get('thing'));
