@@ -380,6 +380,55 @@ $statement = $sql->prepareStatementForSqlObject($select);
 $results = $statement->execute();
 ```
 
+### Data Definition Language
+
+A component to handle SQL operations such as creation and alteration of tables
+and index etc.
+
+```php
+use Zend\Db\Sql\Ddl;
+
+$table = new Ddl\CreateTable();
+
+// or with table
+$table = new Ddl\CreateTable('bar');
+
+// optionally, as a temporary table
+$table = new Ddl\CreateTable('bar', true);
+```
+
+### Table Gateway
+
+The table gateway can be used to execute queries against a specific table.
+
+**TableGatewayInterface**
+
+```php
+<?php
+namespace Zend\Db\TableGateway;
+
+interface TableGatewayInterface
+{
+    public function getTable();
+    public function select($where = null);
+    public function insert($set);
+    public function update($set, $where = null);
+    public function delete($where);
+}
+```
+
+**Example Query**
+
+```php
+use Zend\Db\TableGateway\TableGateway;
+$projectTable = new TableGateway('project', $adapter);
+$rowset = $projectTable->select(array('type' => 'PHP'));
+```
+
+## Logger
+
+
+
 ## Web Services
 
 ### Http Client
@@ -634,3 +683,11 @@ echo $this->paginationControl(
 );
 ?>
 ```
+
+## Hydrators
+
+Hydrators allow data stored in an array to be transposed into an object.
+
+ZF2 Ships with various default Hydrators including:
+
+*
