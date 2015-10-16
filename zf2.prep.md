@@ -300,7 +300,7 @@ An abstraction layer to allow for databases to be queried
 
 ### Adapter
 
-To use Zend DB an adapter must be instantiated with taking config of database
+To use Zend DB an adapter must be instantiated taking config of database
 credentials and details as first argument.
 
 **DriverInterface**
