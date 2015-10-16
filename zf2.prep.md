@@ -234,6 +234,17 @@ out of the Manager.
 
 The event manager is an implementation of the observer pattern.
 
+Default Events:
+
+* bootstrap
+* route
+* [dispatch.error]
+* dispatch
+* [dispatch.error]
+* render
+* [render.error]
+* finish
+
 **The EventManagerInterface**
 
 ```php
@@ -427,7 +438,17 @@ $rowset = $projectTable->select(array('type' => 'PHP'));
 
 ## Logger
 
+Code below will register Logger before the current PHP error handler, and will
+pass the error along as well.
 
+```php
+Zend\Log\Logger::registerErrorHandler($logger);
+```
+
+**Writers**
+
+* \\Zend\\Log\\Writer\\Db - logs to database
+* \\Zend\\Log\\Writer\\Stream - filesystem or php://output
 
 ## Web Services
 
@@ -457,6 +478,30 @@ $response = $this->httpClient->send();
 ```
 
 ### REST
+
+* GET {/route} - AbstractRestfulController::getList()
+* GET {/route/[:id]} - AbstractRestfulController::get($id)
+* PUT - AbstractRestfulController::update($id, $data)
+* POST - AbstractRestfulController::create($data)
+* DELETE - AbstractRestfulController::delete($id)
+
+**Json Strategy**
+
+```php
+'view_manager' => array(
+    'strategies' => array(
+        'ViewJsonStrategy',
+    ),
+),
+```
+
+Once the above code is in place returning a JsonModel from view will be converted
+to JSON.
+
+**AcceptableViewModelSelector**
+
+AcceptableViewModelSelector can be used to return different View Models based
+on Content-Type headers.
 
 ### SOAP
 
@@ -684,10 +729,77 @@ echo $this->paginationControl(
 ?>
 ```
 
+## Mail
+
+**Send Message**
+
+```php
+$message = new Message();
+
+$message->setBody('This is a test');
+$message->setSubject('Test Subject');
+$message->setFrom('example@example.com', 'Example Name');
+$message->addTo('receipient@example.com', 'Recipient Name');
+
+$transport = new SendMail();
+$transport->send($message);
+```
+
+**Transports**
+
+* SendMail
+* Smtp
+* File
+
 ## Hydrators
 
 Hydrators allow data stored in an array to be transposed into an object.
 
 ZF2 Ships with various default Hydrators including:
 
-*
+**Interfaces**
+
+```php
+interface HydrationInterface
+{
+    /**
+     * Hydrate $object with the provided $data.
+     *
+     * @param  array $data
+     * @param  object $object
+     * @return object
+     */
+    public function hydrate(array $data, $object);
+}
+```
+
+```php
+interface ExtractionInterface
+{
+    /**
+     * Extract values from an object
+     *
+     * @param  object $object
+     * @return array
+     */
+    public function extract($object);
+}
+```
+
+**Filtering**
+
+Filter interface
+
+```php
+interface FilterInterface
+{
+    /**
+     * Returns the result of filtering $value
+     *
+     * @param  mixed $value
+     * @throws Exception\RuntimeException If filtering $value is impossible
+     * @return mixed
+     */
+    public function filter($value);
+}
+```
