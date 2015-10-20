@@ -129,7 +129,7 @@ Service will be lazy loaded and classes will only be instantiated from
 invokables or factories when get method is called on ServiceManager and
 provided with matching name as first argument.
 
-It's possible to set a service through the Service Manager interface:
+It's possible to set a service through the Service Manager class:
 
 ```php
 <?php
