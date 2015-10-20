@@ -1,5 +1,21 @@
 # ZF2 Certified Architect Notes & Prep
 
+## The MvcEvent
+
+Zend\Mvc\MvcEvent
+
+This is the order of events triggered, in order during the Application::bootstrap() event.
+
+Name           | Constant                       | Description
+--------------------------------------------------------------
+bootstrap      | MvcEvent::EVENT_BOOTSTRAP      | Bootstrap the application by creating the ViewManager.
+route          | MvcEvent::EVENT_EVENT_ROUTE    | Perform all the route work (matching).
+dispatch       | MvcEvent::EVENT_DISPATCH       | Dispatch the matched route to a controller / action.
+dispatch.error | MvcEvent::EVENT_DISPATCH_ERROR | Event triggered in case of a problem during dispatch process (unknown controller)
+render         | MvcEvent::EVENT_RENDER         | Prepare the data and delegate the rendering to the view layer.
+render.error   | MvcEvent::EVENT_RENDER_ERROR   | Event triggered in case of a problem during render process (no renderer found)
+finish         | MvcEvent::EVENT_FINISH         | Perform any task once everything is done
+
 ## Modules
 
 The module manager is the component that allows for modules to be loaded
@@ -138,7 +154,10 @@ It's possible to set a service through the Service Manager class:
 
 The third parameter is a boolean that switches whether the service is shared or a new instance is created each time.  This is also the case for the following methods:
 
-This parameter has been removed from Zend Framework 2.2 and above.
+setFactory()
+setInvokableClass()
+
+This parameter has been removed for setService from Zend Framework 2.2 and above, but it still exists for setFactory() and setInvokableClass().
 
 **Example Configs**
 
