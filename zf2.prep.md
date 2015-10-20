@@ -7,7 +7,7 @@ Zend\Mvc\MvcEvent
 This is the order of events triggered, in order during the Application::bootstrap() event.
 
 Name           | Constant                       | Description
---------------------------------------------------------------
+-------------- | ------------------------------ | ------------------------------------------
 bootstrap      | MvcEvent::EVENT_BOOTSTRAP      | Bootstrap the application by creating the ViewManager.
 route          | MvcEvent::EVENT_EVENT_ROUTE    | Perform all the route work (matching).
 dispatch       | MvcEvent::EVENT_DISPATCH       | Dispatch the matched route to a controller / action.
