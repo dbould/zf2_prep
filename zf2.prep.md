@@ -129,6 +129,17 @@ Service will be lazy loaded and classes will only be instantiated from
 invokables or factories when get method is called on ServiceManager and
 provided with matching name as first argument.
 
+It's possible to set a service through the Service Manager interface:
+
+```php
+<?php
+    $services->setService('my-service', $service, $shared);
+```
+
+The third parameter is a boolean that switches whether the service is shared or a new instance is created each time.  This is also the case for the following methods:
+
+This parameter has been removed from Zend Framework 2.2 and above.
+
 **Example Configs**
 
 ```php
