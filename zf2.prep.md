@@ -4,6 +4,10 @@
 
 Zend\Mvc\MvcEvent
 
+Questions on the MvcEvent are likely.  Learn this page well: http://framework.zend.com/manual/current/en/modules/zend.mvc.mvc-event.html
+(or depending on exam version, use this:)
+http://framework.zend.com/manual/2.2/en/modules/zend.mvc.mvc-event.html
+
 This is the order of events triggered, in order during the Application::bootstrap() event.
 
 Name           | Constant                       | Description
