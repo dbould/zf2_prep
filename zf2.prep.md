@@ -699,8 +699,47 @@ The AssertionInterface can be used to create callbacks to supplement roles.
 For example if you required a User to also be part of a subscription model an
 assertion could be used.
 
-### ACL
+**Assigning Permissions**
+```
+<?php
+use Zend\Permissions\Rbac\Rbac as ZendRbac;
+use Zend\Permissions\Rbac\Role;
 
+class Rbac extends ZendRbac
+{
+    //Extend Zend RBAC role
+    $role = new Role('user');
+    //Assign permission by using controller and action name
+    $role->addPermission('controllername.action');
+    //Add the role to Zend's RBAC parent class
+    $this->addRole($role);
+}
+```
+
+**Check Access**
+```
+<?php
+//With RBAC we only check access based on the user's role
+$rbac->hasRole($role)
+$rbac->isGranted($role, $permission)
+
+```
+
+### ACL
+**Assigning Permissions**
+```
+<?php
+use Zend\Permissions\Acl\Acl as ZendAcl;
+
+class Acl extends ZendAcl
+{
+    //Create the new role
+    $this->addRole('user');
+    //Create possible resources - resource would be a route name or something from service manager for example
+    $this->addResource('resourcename');
+    //Assign users to allow access to resources.  A resource can be an object of type Resource\ResourceInterface or a string.  Third parameter is optional - controller action.  Optional fourth parameter for assertions
+    $this->allow('user', 'resourcename', 'action');
+```
 
 
 ## Pagination
