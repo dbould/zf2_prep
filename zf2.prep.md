@@ -564,11 +564,13 @@ echo "Encoded '$encoded': ";
 echo $client->decode($encoded), "\n";  // Method comes from setClass argument interface
 ```
 
-Sop
 
 **SOAP Server Example**
 
-Using the AutoDiscover set handler using AutoDiscover::setClass method.
+Using the AutoDiscover set handler using AutoDiscover::setClass method.  Autodiscover is used to generate WSDL.
+
+Use $server->setClass('App\ClassName') to define soap server methods
+Alternatively use $server->addFunction('functionName')
 
 ```php
 <?php
