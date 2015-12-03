@@ -689,6 +689,14 @@ Role based access control.
 
 * Roles have defined permissions
 * Roles have inheritance
+* Extend Zend\Permission\Rbac\AbstractRole or use default class in Zend\Permission\Rbac\Role
+
+There are five RBAC classes available in ZF2:
+* Zend\Permission\Rbac\AbstractIterator
+* Zend\Permission\Rbac\AbstractRole
+* Zend\Permissions\Rbac\AssertionInterface
+* Zend\Permissions\Rbac\Rbac
+* Zend\Permissions\Rbac\Role
 
 **Roles**
 
@@ -729,6 +737,9 @@ $rbac->isGranted($role, $permission)
 
 ### ACL
 **Assigning Permissions**
+* Instantiate Zend\Permissions\Acl\Acl()
+* By default all access to resoure privileges is denied unless an allow rule is specified
+* $acl->allow(); $acl->deny();
 ```
 <?php
 use Zend\Permissions\Acl\Acl as ZendAcl;
